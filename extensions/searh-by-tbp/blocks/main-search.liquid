@@ -16,6 +16,17 @@ endif
 </style>
 
 <div class="tbp-search-page tbp-preload">
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var query = new URLSearchParams(window.location.search).get('q') || '';
+  if (!query) return;
+  document.querySelectorAll('h1,h2,.t4s-search-title,.search-title,.page-title').forEach(function (heading) {
+    if (/search results/i.test(heading.textContent || '')) {
+      heading.textContent = 'Search Results for: “' + query + '”';
+    }
+  });
+});
+</script>
 <div class="tbp-toolbar">
 <div class="tbp-toolbar-left">
 <button class="tbp-filter-btn" type="button">
