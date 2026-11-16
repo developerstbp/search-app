@@ -1364,6 +1364,8 @@ function initTBPSearch(root) {
   let typoSuggestionController = null;
   let displayConfig = { showTrendingCollections: true, showSuggestions: false };
   let trendingCache = null;
+  let trendingCacheAt = 0;
+  const TRENDING_BROWSER_TTL = 30000;
   let trendingPromise = null;
   const searchResultCache = {};
   let renderGen = 0; // increments every time user types — invalidates stale loadTrending renders
@@ -1884,7 +1886,7 @@ ${Number(p.price) > 0
   }
 
   async function prefetchTrending() {
-    if (trendingCache) return trendingCache;
+    if (trendingCache && Date.now() - trendingCacheAt < TRENDING_BROWSER_TTL) return trendingCache;
     if (trendingPromise) return trendingPromise;
     trendingPromise = (async () => {
       const [brandRes, productRes, colRes, sugRes] = await Promise.all([
@@ -1900,6 +1902,7 @@ ${Number(p.price) > 0
       ]);
       const sugData = sugRes && sugRes.ok ? await sugRes.json().catch(() => []) : [];
       trendingCache = normalizeTrendingPayload(brandData, prodData, colData, sugData);
+      trendingCacheAt = Date.now();
       return trendingCache;
     })().catch((err) => {
       if (err.name !== "AbortError") console.error(err);
@@ -1911,7 +1914,7 @@ ${Number(p.price) > 0
   }
 
   async function loadTrending() {
-    if (trendingCache) {
+    if (trendingCache && Date.now() - trendingCacheAt < TRENDING_BROWSER_TTL) {
       renderTrendingPayload(trendingCache);
       return;
     }
@@ -2032,7 +2035,13 @@ ${Number(p.price) > 0
       fetch(`${API}/analytics`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ type: "search", query: q_, store: shop }),
+        body: JSON.stringify({
+          type: "search",
+          query: q_,
+          store: shop,
+          vendor: data?.meta?.detectedVendor || null,
+          resultsCount: Array.isArray(data?.products) ? data.products.length : 0,
+        }),
       });
 
       searchResultCache[cacheKey] = data;

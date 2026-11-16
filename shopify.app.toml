@@ -2,7 +2,7 @@
 
 client_id = "c764fc1a2819d17de0fb9f9c368412af"
 name = "search app by tbp"
-application_url = "https://search-app-hcwsn.ondigitalocean.app"
+application_url = "https://skillful-indigo-loris-22.hostingersite.com/api/store"
 embedded = true
 
 [build]
@@ -12,38 +12,39 @@ automatically_update_urls_on_dev = false
 api_version = "2026-04"
 
   [[webhooks.subscriptions]]
-  topics = [ "products/delete" ]
-  uri = "/webhooks/products/delete"
-
-  [[webhooks.subscriptions]]
-  topics = [ "products/create" ]
-  uri = "/webhooks/products/create"
-
-  [[webhooks.subscriptions]]
-  topics = [ "app/scopes_update" ]
-  uri = "/webhooks/app/scopes_update"
-
-  [[webhooks.subscriptions]]
-  topics = [ "collections/update" ]
-  uri = "/webhooks/collections/update"
-
-  [[webhooks.subscriptions]]
-  topics = [ "products/update" ]
-  uri = "/webhooks/products/update"
-
-  [[webhooks.subscriptions]]
-  topics = [ "collections/delete" ]
-  uri = "/webhooks/collections/delete"
-
-  [[webhooks.subscriptions]]
-  topics = [ "app/uninstalled" ]
   uri = "/webhooks/app/uninstalled"
+  topics = [ "app/uninstalled" ]
 
   [[webhooks.subscriptions]]
-  topics = [ "collections/create" ]
+  uri = "/webhooks/products/update"
+  topics = [ "products/update" ]
+
+  [[webhooks.subscriptions]]
   uri = "/webhooks/collections/create"
+  topics = [ "collections/create" ]
+
+  [[webhooks.subscriptions]]
+  uri = "/webhooks/products/create"
+  topics = [ "products/create" ]
+
+  [[webhooks.subscriptions]]
+  uri = "/webhooks/collections/delete"
+  topics = [ "collections/delete" ]
+
+  [[webhooks.subscriptions]]
+  uri = "/webhooks/products/delete"
+  topics = [ "products/delete" ]
+
+  [[webhooks.subscriptions]]
+  uri = "/webhooks/app/scopes_update"
+  topics = [ "app/scopes_update" ]
+
+  [[webhooks.subscriptions]]
+  uri = "/webhooks/collections/update"
+  topics = [ "collections/update" ]
 
 [access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
 scopes = "read_content,read_products,write_metaobject_definitions,write_metaobjects,write_products"
 
 [auth]
