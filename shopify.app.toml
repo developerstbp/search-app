@@ -12,35 +12,35 @@ automatically_update_urls_on_dev = false
 api_version = "2026-04"
 
   [[webhooks.subscriptions]]
-  uri = "/webhooks/app/uninstalled"
+  uri = "https://skillful-indigo-loris-22.hostingersite.com/webhooks/app/uninstalled"
   topics = [ "app/uninstalled" ]
 
   [[webhooks.subscriptions]]
-  uri = "/webhooks/products/update"
+  uri = "https://skillful-indigo-loris-22.hostingersite.com/webhooks/products/update"
   topics = [ "products/update" ]
 
   [[webhooks.subscriptions]]
-  uri = "/webhooks/collections/create"
+  uri = "https://skillful-indigo-loris-22.hostingersite.com/webhooks/collections/create"
   topics = [ "collections/create" ]
 
   [[webhooks.subscriptions]]
-  uri = "/webhooks/products/create"
+  uri = "https://skillful-indigo-loris-22.hostingersite.com/webhooks/products/create"
   topics = [ "products/create" ]
 
   [[webhooks.subscriptions]]
-  uri = "/webhooks/collections/delete"
+  uri = "https://skillful-indigo-loris-22.hostingersite.com/webhooks/collections/delete"
   topics = [ "collections/delete" ]
 
   [[webhooks.subscriptions]]
-  uri = "/webhooks/products/delete"
+  uri = "https://skillful-indigo-loris-22.hostingersite.com/webhooks/products/delete"
   topics = [ "products/delete" ]
 
   [[webhooks.subscriptions]]
-  uri = "/webhooks/app/scopes_update"
+  uri = "https://skillful-indigo-loris-22.hostingersite.com/webhooks/app/scopes_update"
   topics = [ "app/scopes_update" ]
 
   [[webhooks.subscriptions]]
-  uri = "/webhooks/collections/update"
+  uri = "https://skillful-indigo-loris-22.hostingersite.com/webhooks/collections/update"
   topics = [ "collections/update" ]
 
 [access_scopes]
@@ -49,13 +49,13 @@ scopes = "read_content,read_products,write_metaobject_definitions,write_metaobje
 
 [auth]
 redirect_urls = [
-  "https://search-app-hcwsn.ondigitalocean.app/auth/callback",
-  "https://search-app-hcwsn.ondigitalocean.app/auth/shopify/callback",
-  "https://search-app-hcwsn.ondigitalocean.app/api/auth/callback"
+  "https://skillful-indigo-loris-22.hostingersite.com/api/store/auth/callback",
+  "https://skillful-indigo-loris-22.hostingersite.com/api/store/auth/shopify/callback",
+  "https://skillful-indigo-loris-22.hostingersite.com/api/store/api/auth/callback"
 ]
 
 [app_proxy]
-url = "https://search-app-hcwsn.ondigitalocean.app/api"
+url = "https://skillful-indigo-loris-22.hostingersite.com/api/store/api"
 subpath = "search-app"
 prefix = "apps"
 
