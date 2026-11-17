@@ -216,7 +216,10 @@ function ensureTBPStyles() {
         text-decoration: none;
       }
 
-      .tbp-brands > div > a { flex: 1 1 auto; }
+      .tbp-brands > div > a {
+        flex: 1 1 auto;
+        text-align: left;
+      }
 
       .tbp-collections .tbp-collection-item > a {
         display: flex;
