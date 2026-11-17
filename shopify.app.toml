@@ -2,7 +2,7 @@
 
 client_id = "c764fc1a2819d17de0fb9f9c368412af"
 name = "search app by tbp"
-application_url = "https://search-app-hcwsn.ondigitalocean.app"
+application_url = "https://orca-app-2o63x.ondigitalocean.app"
 embedded = true
 
 [build]
@@ -49,9 +49,9 @@ scopes = "read_content,read_products,write_metaobject_definitions,write_metaobje
 
 [auth]
 redirect_urls = [
-  "https://search-app-hcwsn.ondigitalocean.app/auth/callback",
-  "https://search-app-hcwsn.ondigitalocean.app/auth/shopify/callback",
-  "https://search-app-hcwsn.ondigitalocean.app/api/auth/callback"
+  "https://orca-app-2o63x.ondigitalocean.app/auth/callback",
+  "https://orca-app-2o63x.ondigitalocean.app/auth/shopify/callback",
+  "https://orca-app-2o63x.ondigitalocean.app/api/auth/callback"
 ]
 
 [app_proxy]
