@@ -210,6 +210,19 @@ function ensureTBPStyles() {
 
       .tbp-brands > div:hover { color: #000; }
 
+      .tbp-brands > div > a,
+      .tbp-collections .tbp-collection-item > a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .tbp-brands > div > a { flex: 1 1 auto; }
+
+      .tbp-collections .tbp-collection-item > a {
+        display: flex;
+        width: 100%;
+      }
+
       .tbp-brands > div::after {
         content: "↗";
         color: #ccc;
@@ -278,7 +291,21 @@ function ensureTBPStyles() {
   display: flex;
   flex-direction: column;
   height: 100%;
+  position: relative;
 }
+
+      .tbp-card-link {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .tbp-card .tbp-whatsapp-btn {
+        position: relative;
+        z-index: 2;
+      }
 
       .tbp-card:hover { transform: translateY(-2px); }
 
@@ -1478,7 +1505,8 @@ function initTBPSearch(root) {
       .slice(0, 20)
       .map(b => {
         const title = b?.title || b?.name || b?.vendor || "";
-        return `<div data-tbp-brand="${title.replace(/"/g, "&quot;")}">${title}</div>`;
+        const url = `/search?q=${encodeURIComponent(title)}`;
+        return `<div><a href="${escapeHtml(url)}" data-tbp-brand="${title.replace(/"/g, "&quot;")}">${escapeHtml(title)}</a></div>`;
       })
       .join("") || `<div class="tbp-empty-brand">No Brands Found</div>`;
   }
@@ -1509,7 +1537,7 @@ function initTBPSearch(root) {
         const url = c.url || (c.handle
           ? `/collections/${encodeURIComponent(c.handle)}`
           : `/search?q=${encodeURIComponent(c.title)}`);
-        return `<span class="tbp-collection-item" onclick="window.location='${escapeHtml(url)}'"><span class="tbp-item-hash" aria-hidden="true">#</span><span class="tbp-item-text">${escapeHtml(c.title)}</span></span>`;
+        return `<span class="tbp-collection-item"><a href="${escapeHtml(url)}"><span class="tbp-item-hash" aria-hidden="true">#</span><span class="tbp-item-text">${escapeHtml(c.title)}</span></a></span>`;
       })
       .join("");
     return list.length;
@@ -1799,6 +1827,7 @@ function initTBPSearch(root) {
         const vendor = escapeHtml(p.vendor || "");
         return `
         <div class="tbp-card" data-index="${i}">
+          <a class="tbp-card-link" href="/products/${encodeURIComponent(p.handle || "")}" aria-label="${title}"></a>
           <img src="${escapeHtml(p.image || "")}" alt="${title}">
           <h4>${title}</h4>
           <span class="tbp-vendor${vendor ? "" : " tbp-vendor-empty"}">${vendor || "&nbsp;"}</span>
@@ -1829,26 +1858,27 @@ ${Number(p.price) > 0
     q(".tbp-products").innerHTML = `
       ${list}
       ${showViewAll ? `
-        <div class="tbp-view-all" onclick="window.location='${viewUrl}'">
+        <a class="tbp-view-all" href="${viewUrl}">
           ${viewText} →
-        </div>
+        </a>
       ` : ""}
     `;
     if (mobileViewMore) {
       mobileViewMore.classList.toggle("tbp-hidden", !showViewAll);
       mobileViewMore.innerHTML = showViewAll
-        ? `<div class="tbp-view-all" onclick="window.location='${viewUrl}'">${viewText} &rarr;</div>`
+        ? `<a class="tbp-view-all" href="${viewUrl}">${viewText} &rarr;</a>`
         : "";
     }
 
     q(".tbp-products")
-      .querySelectorAll(".tbp-card")
-      .forEach((card, i) => {
-        card.addEventListener("click", async () => {
+      .querySelectorAll(".tbp-card-link")
+      .forEach((link, i) => {
+        link.addEventListener("click", () => {
           const p = products[i];
-          await fetch(`${API}/analytics`, {
+          fetch(`${API}/analytics`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
+            keepalive: true,
             body: JSON.stringify({
               type: "click",
               productId: p.id,
@@ -1856,8 +1886,7 @@ ${Number(p.price) > 0
               productImage: p.image,
               store: shop,
             }),
-          });
-          window.location = `/products/${p.handle}`;
+          }).catch(() => {});
         });
       });
   }
@@ -2113,7 +2142,10 @@ ${Number(p.price) > 0
   // brand + suggestion clicks — event delegation per instance
   q(".tbp-brands").addEventListener("click", (e) => {
     const brand = e.target.closest("[data-tbp-brand]")?.dataset?.tbpBrand;
-    if (brand) tbpSearchFn(brand, true);
+    if (brand && e.button === 0 && !e.ctrlKey && !e.metaKey && !e.shiftKey && !e.altKey) {
+      e.preventDefault();
+      tbpSearchFn(brand, true);
+    }
   });
 
   q(".tbp-collections").addEventListener("click", (e) => {

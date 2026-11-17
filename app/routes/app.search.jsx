@@ -67,7 +67,7 @@ export const loader = async ({ request }) => {
     safe(`${API}/api/admin/synonyms/suggestions?shop=${shop}&days=30`),
     safe(`${API}/api/search-performance?shop=${shop}&days=30`),
     safe(`${API}/api/admin/trending/excluded-products?shop=${shop}`),
-    safe(`${API}/api/admin/display-settings?shop=${shop}`),
+    safe(`${API}/api/display-settings?shop=${shop}`),
     safe(`${API}/api/admin/suggestions?shop=${shop}`),
     safe(`${API}/api/admin/search-settings?shop=${shop}`),
   ]);
