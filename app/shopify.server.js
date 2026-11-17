@@ -12,6 +12,11 @@ import {
 
 import prisma from "./db.server";
 
+const backendUrl = (
+  process.env.BACKEND_URL ||
+  "https://skillful-indigo-loris-22.hostingersite.com"
+).replace(/\/$/, "");
+
 const shopify = shopifyApp({
 
   apiKey:
@@ -50,8 +55,8 @@ const shopify = shopifyApp({
 
         try {
 
-          await fetch(
-            "https://search-app-hcwsn.ondigitalocean.app/api/store/save",
+          const response = await fetch(
+            `${backendUrl}/api/store/save`,
             {
               method: "POST",
 
@@ -72,6 +77,11 @@ const shopify = shopifyApp({
               }),
             }
           );
+
+          if (!response.ok) {
+            const errorBody = await response.text();
+            throw new Error(`Store save failed (${response.status}): ${errorBody}`);
+          }
 
           console.log(
             "OFFLINE STORE SAVED:",

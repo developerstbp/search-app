@@ -29,7 +29,7 @@ import {authenticate} from "../shopify.server";
 const API =
   process.env.FILTERS_API_BASE_URL ||
   process.env.BACKEND_API_BASE_URL ||
-  "https://search-app-hcwsn.ondigitalocean.app";
+  "https://skillful-indigo-loris-22.hostingersite.com";
 
 const defaultFilters = [
   createDefaultFilter("availability", "Availability", "availability", "availability", "visible", "active", 0),

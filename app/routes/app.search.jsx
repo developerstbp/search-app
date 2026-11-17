@@ -30,7 +30,7 @@ import {
   CartesianGrid,
 } from "recharts";
 
-const API = "https://search-app-hcwsn.ondigitalocean.app";
+const API = import.meta.env.VITE_API_URL || "https://skillful-indigo-loris-22.hostingersite.com";
 
 // ─── Loader: all GET endpoints parallel ──────────────────────────────────────
 export const loader = async ({ request }) => {

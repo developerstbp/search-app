@@ -1,6 +1,6 @@
 const API =
   document.querySelector("[data-api-base]")?.dataset?.apiBase ||
-  "https://search-app-hcwsn.ondigitalocean.app/api";
+  "https://skillful-indigo-loris-22.hostingersite.com/api";
 
 // CSS asset loaded only once even when two instances exist (desktop + mobile)
 let _tbpStyleInjected = false;

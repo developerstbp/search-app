@@ -22,7 +22,7 @@ import {CheckIcon} from "@shopify/polaris-icons";
 import {boundary} from "@shopify/shopify-app-react-router/server";
 import {authenticate} from "../shopify.server";
 
-const API = import.meta.env.VITE_API_URL || "https://search-app-hcwsn.ondigitalocean.app";
+const API = import.meta.env.VITE_API_URL || "https://skillful-indigo-loris-22.hostingersite.com";
 
 export const loader = async ({request}) => {
   const {session} = await authenticate.admin(request);

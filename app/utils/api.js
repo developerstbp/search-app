@@ -4,7 +4,7 @@ export async function apiFetch(
 ) {
   const baseUrl =
     import.meta.env.VITE_API_URL ||
-    "https://search-app-hcwsn.ondigitalocean.app";
+    "https://skillful-indigo-loris-22.hostingersite.com";
 
   const response =
     await fetch(
