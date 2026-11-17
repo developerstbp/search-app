@@ -1,6 +1,6 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
-client_id = "c764fc1a2819d17de0fb9f9c368412af"
+client_id = "a0bd60ed7f23d1872e253f7679a8f786"
 name = "search app by tbp"
 application_url = "https://orca-app-2o63x.ondigitalocean.app"
 embedded = true
